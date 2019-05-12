@@ -3,9 +3,8 @@
 public class Main {
 	public static void main(String[] args) {
 
-			String path = "C:\\Users\\User\\Desktop\\holskz\\";
+			String path = "/Users/alexbol96/IdeaProjects/DZpasalgorithms/Comtrades/";
 			String file = "KZ1";
-			Furie f = new Furie();
 //		Chart ch = new Chart();
 			DataComtrade cd = new DataComtrade(path, file);
 //		cd.setChart(ch);
