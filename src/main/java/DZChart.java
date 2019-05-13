@@ -115,6 +115,7 @@ public class DZChart {
 		tripSeries.add(r, trip);
 	}
 
-	public static void create(){ dztc = new DZChart(); }
+	public static void create(){
+		dztc = new DZChart(); }
 	public static DZChart get(){ return dztc; }
 }

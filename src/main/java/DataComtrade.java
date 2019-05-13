@@ -16,7 +16,7 @@ public class DataComtrade {
     private DZrele AB;
     private DZrele BC;
     private DZrele CA;
-    private Charts chart;
+    private XYLineChartExample chart;
 
     private double k1[]= new double [6];
     private double k2[]=new double [6];
@@ -129,19 +129,16 @@ public class DataComtrade {
                 imagUs[1] = fUb.getImaginary(Ubmgn);
                 imagUs[2] = fUc.getImaginary(Ucmgn);
 
-
-
                 if (fUc.wait80() == true) {
                     ABflag = AB.Breaker(realUs[0], realUs[1], imagUs[0], imagUs[1], realIs[0], realIs[1], imagIs[0], imagIs[1]);
                     BCflag = BC.Breaker(realUs[1], realUs[2], imagUs[1], imagUs[2], realIs[1], realIs[2], imagIs[1], imagIs[2]);
                     CAflag = CA.Breaker(realUs[2], realUs[0], imagUs[2], imagUs[0], realIs[2], realIs[0], imagIs[2], imagIs[0]);
-
+                    chart.setR(AB.returnR());
+                    chart.setX(AB.returnX());
                     if (ABflag || BCflag || CAflag) {
                         trip = 1;
                     }
                 }
-                Charts.addAnalogData(0,0, AB.returnZ());
-                Charts.addAnalogData(1,0, trip);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -156,7 +153,7 @@ public class DataComtrade {
     public void setReleCA(DZrele r){
         this.CA = r;
     }
-    public void setChart(Charts ch){
+    public void setChart(XYLineChartExample ch){
         this.chart = ch;
     }
 }
