@@ -5,30 +5,24 @@ public class Main {
 
 			String path = "/Users/alexbol96/IdeaProjects/DZpasalgorithms/Comtrades/";
 			String file = "KZ1";
-//		Chart ch = new Chart();
+//			Charts ch = new Charts();
 			DataComtrade cd = new DataComtrade(path, file);
 //		cd.setChart(ch);
+		//DZChart.create();
+		Charts.createAnalogChart("Z",0);
+		Charts.addSeries("Zab",0,0);
 
-			Charts.createAnalogChart("High",0);
-			Charts.addSeries("IaH",0,0);
-			Charts.addSeries("IbH",0,1);
-			Charts.addSeries("IcH",0,2);
+		Charts.createAnalogChart("TRIP ",1);
+		Charts.addSeries("TripAB",1,0);
 
-			Charts.createAnalogChart("Low ",1);
-			Charts.addSeries("IaL",1,0);
-			Charts.addSeries("IbL",1,1);
-			Charts.addSeries("IcL",1,2);
+//		cd.setChart(ch);
+		DZrele AB = new DZrele();
+		DZrele BC = new DZrele();
+		DZrele CA = new DZrele();
 
-			Charts.createAnalogChart("HighRMS ",2);
-			Charts.addSeries("IaHrms",2,0);
-			Charts.addSeries("IbHrms",2,1);
-			Charts.addSeries("IcHrms",2,2);
-
-			Charts.createAnalogChart("LowRMS ",3);
-			Charts.addSeries("IaLrms",3,0);
-			Charts.addSeries("IbLrms",3,1);
-			Charts.addSeries("IcLrms",3,2);
-
-			cd.run();
+		cd.setReleAB(AB);
+		cd.setReleBC(BC);
+		cd.setReleCA(CA);
+		cd.run();
 		}
 }

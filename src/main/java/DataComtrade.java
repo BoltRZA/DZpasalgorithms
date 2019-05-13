@@ -1,5 +1,6 @@
 import org.apache.commons.math3.complex.Complex;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,12 +13,21 @@ public class DataComtrade {
     private BufferedReader br;
     private String line;
     private String[] lineData;
+    private DZrele AB;
+    private DZrele BC;
+    private DZrele CA;
+    private Charts chart;
 
     private double k1[]= new double [6];
     private double k2[]=new double [6];
-    public static Complex[] iS;
-    public static Complex[] uS;
-    public static Complex[] zS;
+    private double[] realIs = new double[3];
+    private double[] realUs = new double[3];
+    private double[] imagIs = new double[3];
+    private double[] imagUs = new double[3];
+    private boolean ABflag = false;
+    private boolean BCflag = false;
+    private boolean CAflag = false;
+    private int trip = 0;
 
     public DataComtrade(String path, String file) {
 
@@ -28,7 +38,7 @@ public class DataComtrade {
 
     public void run() {
         try {
-            br= new BufferedReader(new FileReader(comtrCfg));
+            br = new BufferedReader(new FileReader(comtrCfg));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -77,11 +87,8 @@ public class DataComtrade {
         //_________________________________________________________________________________________________
         try {
             br = new BufferedReader( new FileReader(comtrDat));
-
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
-            //трайкэтч поможет игнорировать ошибку в ктче вывод ошибки и прога продолжит выполнение а не остановится)
         }
         Furie fIa = new Furie();
         Furie fIb = new Furie();
@@ -99,22 +106,54 @@ public class DataComtrade {
         try {
             while((line = br.readLine())!=null) {
                 lineData = line.split(",");
-                Uamgn = 1000 * Double.parseDouble(lineData[2])*k1[0]+k2[0];
-                Ubmgn = 1000 * Double.parseDouble(lineData[3])*k1[1]+k2[1];
-                Ucmgn = 1000 * Double.parseDouble(lineData[4])*k1[2]+k2[2];
-                Iamgn = 1000 * Double.parseDouble(lineData[5])*k1[3]+k2[3];
-                Ibmgn = 1000 * Double.parseDouble(lineData[6])*k1[4]+k2[4];
-                Icmgn = 1000 * Double.parseDouble(lineData[7])*k1[5]+k2[5];
+                Uamgn = Double.parseDouble(lineData[2])*k1[0]+k2[0];
+                Ubmgn = Double.parseDouble(lineData[3])*k1[1]+k2[1];
+                Ucmgn = Double.parseDouble(lineData[4])*k1[2]+k2[2];
+                Iamgn = Double.parseDouble(lineData[5])*k1[3]+k2[3];
+                Ibmgn = Double.parseDouble(lineData[6])*k1[4]+k2[4];
+                Icmgn = Double.parseDouble(lineData[7])*k1[5]+k2[5];
 
+                realIs[0] = fIa.getReal(Iamgn);
+                realIs[1] = fIb.getReal(Ibmgn);
+                realIs[2] = fIc.getReal(Icmgn);
+
+                imagIs[0] = fIa.getImaginary(Iamgn);
+                imagIs[1] = fIb.getImaginary(Ibmgn);
+                imagIs[2] = fIc.getImaginary(Icmgn);
+
+                realUs[0] = fUa.getReal(Uamgn);
+                realUs[1] = fUb.getReal(Ubmgn);
+                realUs[2] = fUc.getReal(Ucmgn);
+
+                imagUs[0] = fUa.getImaginary(Uamgn);
+                imagUs[1] = fUb.getImaginary(Ubmgn);
+                imagUs[2] = fUc.getImaginary(Ucmgn);
+                if (fUc.wait80() == true) {
+                    ABflag = AB.Breaker(realUs[0], realUs[1], imagUs[0], imagUs[1], realIs[0], realIs[1], imagIs[0], imagIs[1]);
+                    BCflag = BC.Breaker(realUs[1], realUs[2], imagUs[1], imagUs[2], realIs[1], realIs[2], imagIs[1], imagIs[2]);
+                    CAflag = CA.Breaker(realUs[2], realUs[0], imagUs[2], imagUs[0], realIs[2], realIs[0], imagIs[2], imagIs[0]);
+
+                    if (ABflag || BCflag || CAflag) {
+                        trip = 1;
+                    }
+                }
+                Charts.addAnalogData(0,0, AB.returnZ());
+                Charts.addAnalogData(1,0, trip);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.err.println(k1);
-        //System.err.println(U);
-        //System.err.println(I);
     }
-
+    public void setReleAB(DZrele r){
+        this.AB = r;
+    }
+    public void setReleBC(DZrele r){
+        this.BC = r;
+    }
+    public void setReleCA(DZrele r){
+        this.CA = r;
+    }
+    public void setChart(Charts ch){
+        this.chart = ch;
+    }
 }

@@ -4,11 +4,10 @@ public class Furie {
     private double buffer[]= new double[80];
     private double sigXs = 0.0,sigX = 0.0;
     private double sigYs= 0.0, sigY = 0.0;
-    private int num =0;
+    private int numReal = 0;
+    private int numImg = 0;
     private double kf =(double) Math.sqrt(2)/80;
-    private double I1[] = new double[128];
-    private double buff[]= new double[128];
-    private double Idiff;
+    private int count = 0;
 
     public Furie() {
         for (int i=0;i<80; i++) {
@@ -17,52 +16,29 @@ public class Furie {
 
         }
     }
-    public double getRMS (double instValue) {
-        sigXs=sigXs+ instValue*cos[num]-buffer[num]*cos[num];
-        sigYs=sigYs +instValue*sin[num]-buffer[num]*sin[num];
-        sigX=sigXs*kf;
-        sigY=sigYs*kf;
-        buffer[num] = instValue;
-        num++;
-        if (num==80) num=0;
-        return Math.sqrt(sigX*sigX+sigY*sigY);
-    }
     public double getReal(double instValue){
-        sigXs=sigXs+ instValue*cos[num]-buffer[num]*cos[num];
-        sigYs=sigYs +instValue*sin[num]-buffer[num]*sin[num];
+        sigXs=sigXs+ instValue*cos[numReal]-buffer[numReal]*cos[numReal];
         sigX=sigXs*kf;
-        sigY=sigYs*kf;
-        buffer[num] = instValue;
-        num++;
-        if (num==80) num=0;
+        buffer[numReal] = instValue;
+        numReal++;
+        if (numReal ==80) numReal =0;
         return sigX;
     }
     public double getImaginary(double instValue){
-        sigXs=sigXs+ instValue*cos[num]-buffer[num]*cos[num];
-        sigYs=sigYs +instValue*sin[num]-buffer[num]*sin[num];
-        sigX=sigXs*kf;
+        sigYs=sigYs +instValue*sin[numImg]-buffer[numImg]*sin[numImg];
         sigY=sigYs*kf;
-        buffer[num] = instValue;
-        num++;
-        if (num==80) num=0;
+        buffer[numImg] = instValue;
+        numImg++;
+        count++;
+        if (numImg ==80) numImg =0;
         return sigY;
     }
-
-    int w = 128;
-    public void setDataW(int j) {
-        I1[num] = I1[num] + j -buff[num];
-        buff[num] = j;
-        num++;
-        if (num==w) num=0;
-
-    }
-    public int getCycle(int w) {
-        int cycles = 0;
-        while (w >1) {
-            w = w/2;
-            cycles++;
+    public boolean wait80(){
+        if (count>=80){
+            return true;
+        }else{
+            return false;
         }
-        return cycles;
     }
 
 }
