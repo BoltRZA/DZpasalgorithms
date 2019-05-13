@@ -11,22 +11,11 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 public class XYLineChartExample extends JFrame {
-    private double X;
-    private double R;
-    private XYSeriesCollection dataset = new XYSeriesCollection();
-    private XYSeries series = new XYSeries("X(R)");
-
-    public void setX(double x) {
-        this.X = x;
-    }
-
-    public void setR(double r) {
-        this.R = r;
-    }
 
     public XYLineChartExample(String title) {
         super(title);
-
+    }
+    public void runChart(XYSeriesCollection dataset){
         // Create dataset
 
         // Create chart
@@ -42,10 +31,4 @@ public class XYLineChartExample extends JFrame {
         ChartPanel panel = new ChartPanel(chart);
         setContentPane(panel);
     }
-    public void createDataset() {
-        series.add(R, X);
-        //Add series to dataset
-        dataset.addSeries(series);
-    }
-
 }

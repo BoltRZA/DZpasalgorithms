@@ -1,4 +1,6 @@
 import org.apache.commons.math3.complex.Complex;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -29,9 +31,10 @@ public class DataComtrade {
     private boolean CAflag = false;
     private int trip = 0;
 
+    private XYSeriesCollection dataset = new XYSeriesCollection();
+    private XYSeries series = new XYSeries("");
+
     public DataComtrade(String path, String file) {
-
-
         comtrCfg = new File(path+file+".cfg");
         comtrDat = new File(path+file+".dat");
     }
@@ -133,13 +136,14 @@ public class DataComtrade {
                     ABflag = AB.Breaker(realUs[0], realUs[1], imagUs[0], imagUs[1], realIs[0], realIs[1], imagIs[0], imagIs[1]);
                     BCflag = BC.Breaker(realUs[1], realUs[2], imagUs[1], imagUs[2], realIs[1], realIs[2], imagIs[1], imagIs[2]);
                     CAflag = CA.Breaker(realUs[2], realUs[0], imagUs[2], imagUs[0], realIs[2], realIs[0], imagIs[2], imagIs[0]);
-                    chart.setR(AB.returnR());
-                    chart.setX(AB.returnX());
+                    series.add(AB.returnR(), AB.returnX());
                     if (ABflag || BCflag || CAflag) {
                         trip = 1;
                     }
                 }
             }
+            dataset.addSeries(series);
+            chart.runChart(dataset);
         } catch (IOException e) {
             e.printStackTrace();
         }

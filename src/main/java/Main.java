@@ -4,7 +4,8 @@ public class Main {
 	public static void main(String[] args) {
 
 //			String path = "C:\\Users\\Автоматика3\\IdeaProjects\\DZpasalgorithms\\Comtrades\\";
-			String path = "/Users/alexbol96/IdeaProjects/DZpasalgorithms/Comtrades/";
+//			String path = "/Users/alexbol96/IdeaProjects/DZpasalgorithms/Comtrades/";
+			String path = "C:\\Users\\alexbol96\\IdeaProjects\\DZpasalgorithms\\Comtrades\\";
 			String file = "KZ1";
 //			Charts ch = new Charts();
 			DataComtrade cd = new DataComtrade(path, file);
@@ -15,7 +16,7 @@ public class Main {
 
 //		Charts.createAnalogChart("TRIP ",1);
 //		Charts.addSeries("TripAB",1,0);
-		XYLineChartExample example = new XYLineChartExample("XY Chart Example | BORAJI.COM");
+		XYLineChartExample example = new XYLineChartExample("XY Chart");
 		example.setSize(800, 400);
 		example.setLocationRelativeTo(null);
 		example.setVisible(true);
