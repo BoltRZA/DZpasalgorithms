@@ -3,12 +3,12 @@
 public class Main {
 	public static void main(String[] args) {
 
-			String path = "/Users/alexbol96/IdeaProjects/DZpasalgorithms/Comtrades/";
+			String path = "C:\\Users\\Автоматика3\\IdeaProjects\\DZpasalgorithms\\Comtrades\\";
 			String file = "KZ1";
 //			Charts ch = new Charts();
 			DataComtrade cd = new DataComtrade(path, file);
 //		cd.setChart(ch);
-		//DZChart.create();
+		DZChart.create();
 		Charts.createAnalogChart("Z",0);
 		Charts.addSeries("Zab",0,0);
 

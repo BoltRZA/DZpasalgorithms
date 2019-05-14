@@ -128,6 +128,9 @@ public class DataComtrade {
                 imagUs[0] = fUa.getImaginary(Uamgn);
                 imagUs[1] = fUb.getImaginary(Ubmgn);
                 imagUs[2] = fUc.getImaginary(Ucmgn);
+
+
+
                 if (fUc.wait80() == true) {
                     ABflag = AB.Breaker(realUs[0], realUs[1], imagUs[0], imagUs[1], realIs[0], realIs[1], imagIs[0], imagIs[1]);
                     BCflag = BC.Breaker(realUs[1], realUs[2], imagUs[1], imagUs[2], realIs[1], realIs[2], imagIs[1], imagIs[2]);
