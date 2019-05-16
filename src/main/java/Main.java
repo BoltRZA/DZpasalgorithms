@@ -3,8 +3,8 @@
 public class Main {
 	public static void main(String[] args) {
 
-			String path = "C:\\Users\\Автоматика3\\IdeaProjects\\DZpasalgorithms\\Comtrades\\";
-//	String path = "/Users/alexbol96/IdeaProjects/DZpasalgorithms/Comtrades/";
+//			String path = "C:\\Users\\Автоматика3\\IdeaProjects\\DZpasalgorithms\\Comtrades\\";
+			String path = "/Users/alexbol96/IdeaProjects/DZpasalgorithms/Comtrades/";
 			//String path = "C:\\Users\\alexbol96\\IdeaProjects\\DZpasalgorithms\\Comtrades\\";
 			String file = "KZ1";
 //			Charts ch = new Charts();
@@ -22,8 +22,8 @@ public class Main {
 //		example.setVisible(true);
 //		cd.setChart(ch);
 
-		Charts.createAnalogChart("Z",0);
-		Charts.addSeries("Z",0,0);
+		Charts.createAnalogChartXY("Z",0);
+		Charts.addSeriesXY("Z",0,0);
 
 		DZrele AB = new DZrele();
 		DZrele BC = new DZrele();

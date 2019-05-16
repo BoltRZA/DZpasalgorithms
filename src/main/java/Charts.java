@@ -1,12 +1,16 @@
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+
+import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CombinedDomainXYPlot;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
+import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.chart.renderer.xy.XYStepAreaRenderer;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -26,6 +30,25 @@ public class Charts {
 
     public Charts(){
         plot = new CombinedDomainXYPlot(new NumberAxis("Time,s"));
+
+        XYLineAndShapeRenderer ren = new XYLineAndShapeRenderer();
+
+        ren.setSeriesLinesVisible(0,false);
+        ren.setSeriesShapesVisible(0, true);
+
+        ren.setSeriesLinesVisible(1,false);
+        ren.setSeriesShapesVisible(1, true);
+
+        ren.setSeriesLinesVisible(2,false);
+        ren.setSeriesShapesVisible(2, true);
+
+        ren.setSeriesLinesVisible(3,false);
+        ren.setSeriesShapesVisible(3, true);
+
+        ren.setSeriesLinesVisible(4,false);
+        ren.setSeriesShapesVisible(4, true);
+
+        plot.setRenderer(ren);
 
         chart = new JFreeChart("Currents,A ", plot);
         chart.setBorderPaint(Color.black);
@@ -48,11 +71,26 @@ public class Charts {
         rangeAxis.setAutoRangeIncludesZero(false);
         XYPlot subplot = new XYPlot(dataset, null, rangeAxis, new StandardXYItemRenderer() );
         subplot.setBackgroundPaint(Color.BLACK);
+
         plot.add(subplot);
         subplot.setWeight(7);
         datasetsAnalog.add(dataset);
     }
 
+    public static void createAnalogChartXY(String name, int number){
+        if(charts==null) charts = new Charts();
+
+        XYSeriesCollection dataset = new XYSeriesCollection();
+        NumberAxis rangeAxis = new NumberAxis(name);
+        rangeAxis.setAutoRangeIncludesZero(false);
+
+        XYPlot subplot = new XYPlot(dataset, null, rangeAxis, new StandardXYItemRenderer() );
+        subplot.setBackgroundPaint(Color.BLACK);
+//        plot.add(subplot).
+
+//        subplot.setWeight(7);
+
+    }
 
     public static void createDiscreteChart(String name, int number){
         if(charts==null) charts = new Charts();
@@ -75,6 +113,11 @@ public class Charts {
         datasetsAnalog.get(chartNumber).addSeries(series);
     }
 
+    public static void addSeriesXY(String name, int chartNumber, int number){
+        XYSeries series = new XYSeries(name);
+        datasetsAnalog.get(chartNumber).addSeries(series);
+    }
+
     public static void addAnalogData(int chart, int series, double data){
         tempSeries = (XYSeries) datasetsAnalog.get(chart).getSeries().get(series);
         currentTime = tempSeries.getMaxX()+timeStep;
@@ -82,7 +125,6 @@ public class Charts {
     }
     public static void addZData(int chart, int series, double R, double X){
         tempSeries = (XYSeries) datasetsAnalog.get(chart).getSeries().get(series);
-        currentTime = tempSeries.getMaxX()+timeStep;
         tempSeries.add(R, X);
     }
 

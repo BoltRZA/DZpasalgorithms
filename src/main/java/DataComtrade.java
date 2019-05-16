@@ -151,7 +151,6 @@ public class DataComtrade {
                     BCflag = BC.Breaker(realUs[1], realUs[2], imagUs[1], imagUs[2], realIs[1], realIs[2], imagIs[1], imagIs[2]);
                     CAflag = CA.Breaker(realUs[2], realUs[0], imagUs[2], imagUs[0], realIs[2], realIs[0], imagIs[2], imagIs[0]);
                     Charts.addZData(0,0,AB.returnR(),AB.returnX());
-                    datas.add(new XYChart.Data(AB.returnR(), AB.returnX()));
                     //System.out.println(AB.returnR()+" :  " +AB.returnX());
                     if (ABflag || BCflag || CAflag) {
                         trip = 1;

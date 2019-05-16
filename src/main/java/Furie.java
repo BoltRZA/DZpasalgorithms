@@ -26,7 +26,7 @@ public class Furie {
     }
     public double getImaginary(double instValue){
         sigYs=sigYs +instValue*sin[numImg]-bufferImg[numImg]*sin[numImg];
-        sigY=sigYs*(-kf);
+        sigY=sigYs*kf*(-1);
         bufferImg[numImg] = instValue;
         numImg++;
 
