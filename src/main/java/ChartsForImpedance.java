@@ -74,23 +74,39 @@ public class ChartsForImpedance {
         double gamma_angle = DZrelay.gamma_angle;
         double r_zero = DZrelay.r_zero;
 
-        double x1, x2,x3,x4;
-        for(double r = -51.3; r < 70.2; r+= 0.1){
-            x1 = x_max;
+        double r_1_plusLim;
+        double r_1_minLim;
+        double x_3_upperLim;
+        double x_3_lowLim;
+        double r_4_minLim;
+        double r_4_plusLim;
+        double r_2_minLim;
+        double r_2_plusLim;
 
-            x2 = Math.tan(gamma_angle) * (r - r_zero);
-            if (-10 <= x2 & x2 <= x_max & r >= 33.8){
-                tempSeries.add(r,x2);
-            }
-            x3 = Math.tan(alpha_angle + 90) * r;
-            if (0 <= x3 & x3 <= x_max){
-                tempSeries.add(r,x3);
-            }
-            x4 = -Math.tan(betta_angle) * r;
-            if (x4 <= 0 & x4 >= -10 & r<= 33.8){
-                tempSeries.add(r,x4);
-            }
-            tempSeries.add(r,x1);
+
+        r_1_plusLim = x_max / Math.tan(gamma_angle) + r_zero;
+        r_1_minLim = x_max / Math.tan(alpha_angle + 90);
+        x_3_lowLim = 0;
+        x_3_upperLim = x_max;
+        r_4_minLim = 0;
+        r_4_plusLim = (Math.tan(gamma_angle)) * r_zero / (Math.tan(gamma_angle) + Math.tan(betta_angle));
+        r_2_minLim = (Math.tan(gamma_angle)) * r_zero / (Math.tan(gamma_angle) + Math.tan(betta_angle));
+        r_2_plusLim = x_max / Math.tan(gamma_angle) + r_zero;
+
+
+        for(double r1 =r_1_minLim; r1 <= r_1_plusLim; r1 +=0.1){
+            tempSeries.add(r1,x_max);
+
+        }
+        for (double r2 = r_2_minLim; r2 <= r_2_plusLim; r2 += 0.1){
+            tempSeries.add(r2, Math.tan(gamma_angle) * (r2 - r_zero));
+        }
+        for (double r4 = r_4_minLim; r4 <= r_4_plusLim; r4 += 0.1){
+            tempSeries.add(r4, -Math.tan(betta_angle) * r4);
+        }
+
+        for (double x3 = x_3_lowLim; x3 <= x_3_upperLim; x3 += 0.1){
+            tempSeries.add(x3 / Math.tan(alpha_angle + 90), x3);
         }
     }
 }
