@@ -44,7 +44,8 @@ public class Charts {
         if(charts==null) charts = new Charts();
 
         XYSeriesCollection dataset = new XYSeriesCollection();
-        NumberAxis rangeAxis = new NumberAxis(name); rangeAxis.setAutoRangeIncludesZero(false);
+        NumberAxis rangeAxis = new NumberAxis(name);
+        rangeAxis.setAutoRangeIncludesZero(false);
         XYPlot subplot = new XYPlot(dataset, null, rangeAxis, new StandardXYItemRenderer() );
         subplot.setBackgroundPaint(Color.BLACK);
         plot.add(subplot);
@@ -78,6 +79,11 @@ public class Charts {
         tempSeries = (XYSeries) datasetsAnalog.get(chart).getSeries().get(series);
         currentTime = tempSeries.getMaxX()+timeStep;
         tempSeries.add(currentTime, data);
+    }
+    public static void addZData(int chart, int series, double R, double X){
+        tempSeries = (XYSeries) datasetsAnalog.get(chart).getSeries().get(series);
+        currentTime = tempSeries.getMaxX()+timeStep;
+        tempSeries.add(R, X);
     }
 
     public static void addAnalogData(int chart, int series, double data, double timeStep){

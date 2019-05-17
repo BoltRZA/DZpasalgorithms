@@ -16,6 +16,7 @@ public class XYLineChartExample extends JFrame {
         super(title);
     }
     public void runChart(XYSeriesCollection dataset){
+
         // Create dataset
 
         // Create chart

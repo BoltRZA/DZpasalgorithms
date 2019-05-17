@@ -1,3 +1,10 @@
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.stage.Stage;
 import org.apache.commons.math3.complex.Complex;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
@@ -31,8 +38,10 @@ public class DataComtrade {
     private boolean CAflag = false;
     private int trip = 0;
 
+
     private XYSeriesCollection dataset = new XYSeriesCollection();
     private XYSeries series = new XYSeries("");
+    private ObservableList<XYChart.Data> datas = FXCollections.observableArrayList();
 
     public DataComtrade(String path, String file) {
         comtrCfg = new File(path+file+".cfg");
@@ -40,6 +49,8 @@ public class DataComtrade {
     }
 
     public void run() {
+
+
         try {
             br = new BufferedReader(new FileReader(comtrCfg));
         } catch (FileNotFoundException e) {
@@ -106,6 +117,9 @@ public class DataComtrade {
         Double Ibmgn;
         Double Icmgn;
 
+
+
+
         try {
             while((line = br.readLine())!=null) {
                 lineData = line.split(",");
@@ -136,14 +150,20 @@ public class DataComtrade {
                     ABflag = AB.Breaker(realUs[0], realUs[1], imagUs[0], imagUs[1], realIs[0], realIs[1], imagIs[0], imagIs[1]);
                     BCflag = BC.Breaker(realUs[1], realUs[2], imagUs[1], imagUs[2], realIs[1], realIs[2], imagIs[1], imagIs[2]);
                     CAflag = CA.Breaker(realUs[2], realUs[0], imagUs[2], imagUs[0], realIs[2], realIs[0], imagIs[2], imagIs[0]);
-                    series.add(AB.returnR(), AB.returnX());
+                    Charts.addZData(0,0,AB.returnR(),AB.returnX());
+                    datas.add(new XYChart.Data(AB.returnR(), AB.returnX()));
+                    //System.out.println(AB.returnR()+" :  " +AB.returnX());
                     if (ABflag || BCflag || CAflag) {
                         trip = 1;
                     }
                 }
             }
-            dataset.addSeries(series);
-            chart.runChart(dataset);
+            //DenChar.StartPorn(datas);
+
+            //dataset.addSeries(series);
+
+            //chart.runChart(dataset);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
