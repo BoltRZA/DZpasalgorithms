@@ -5,7 +5,7 @@ public class Main {
 //			String path = "C:\\Users\\Автоматика3\\IdeaProjects\\DZpasalgorithms\\Comtrades\\";
 		String path = "/Users/alexbol96/IdeaProjects/DZpasalgorithms/Comtrades/";
 		//String path = "C:\\Users\\alexbol96\\IdeaProjects\\DZpasalgorithms\\Comtrades\\";
-		String file = "KZ1";
+		String file = "KZ7";
 		DataComtrade comtadeData = new DataComtrade(path, file);
 
 		ChartsForImpedance.createAnalogChart("X, Ohms", 0);

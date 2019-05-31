@@ -96,11 +96,12 @@ public class ChartsForImpedance {
 
         for(double r1 =r_1_minLim; r1 <= r_1_plusLim; r1 +=0.1){
             tempSeries.add(r1,x_max);
-
         }
+
         for (double r2 = r_2_minLim; r2 <= r_2_plusLim; r2 += 0.1){
             tempSeries.add(r2, Math.tan(gamma_angle) * (r2 - r_zero));
         }
+
         for (double r4 = r_4_minLim; r4 <= r_4_plusLim; r4 += 0.1){
             tempSeries.add(r4, -Math.tan(betta_angle) * r4);
         }
